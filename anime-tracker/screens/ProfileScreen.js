@@ -105,7 +105,7 @@ const ProfileScreen = () => {
               <View style={StyleSheet.container}>
                 <Image source={movieThumbnail} style={styles.FavoritesImg} />
                 <View style={styles.statNumBox}>
-                  <Text style={styles.FavoitesText}>Movie 1</Text>
+                  <Text style={styles.FavoitesText}>Movie 0</Text>
                 </View>
               </View>
               <View style={StyleSheet.container}>
