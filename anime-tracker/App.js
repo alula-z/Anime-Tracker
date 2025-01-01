@@ -8,7 +8,7 @@ import Navigator from './navigation/Navigator';
 export default function App() {
   return (
     <NavigationContainer>
-    <View style = {{flex:1}}>
+    <View style = {styles.navBar}>
       <Navigator/>
       </View>
     </NavigationContainer>
@@ -17,7 +17,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   navBar: {
+    flex: 1,
     bottom: 0,
+    
   },
   
 });
