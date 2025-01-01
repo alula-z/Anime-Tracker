@@ -5,15 +5,35 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import SettingsScreen from '../screens/SettingsScreen';
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function ProfileStackNavigator(){
+    return(
+        <Stack.Navigator>
+            <Stack.Screen
+            name = "ProfileScreen"
+            component = {ProfileScreen}
+            options = {{ title: "Profile"}}/>
+            <Stack.Screen
+            name = "SettingsScreen"
+            component = {SettingsScreen}
+            options = {{title: 'Settings'}}/>
+        </Stack.Navigator>
+    )
+}
 const Navigator = () =>{
     return(
         <Tab.Navigator>
             <Tab.Screen name = "Home" component = {HomeScreen}/>
             <Tab.Screen name = "Search" component = {SearchScreen}/>
             <Tab.Screen name = "Favorites" component = {FavoritesScreen}/>
-            <Tab.Screen name = "Profile" component = {ProfileScreen}/>
+            <Tab.Screen name = "Profile" component = {ProfileStackNavigator} 
+                options ={{headerShown : false}}/>
             
         </Tab.Navigator>
     );

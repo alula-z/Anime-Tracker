@@ -7,13 +7,14 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Button,
 } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import { Button } from "react-native-elements";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 
 const movieThumbnail = require("../assets/Images/movieThumbnailHolder.jpeg");
 const ProfileScreen = () => {
+  const navigation = useNavigation();
   return (
     <View>
       <ScrollView>
@@ -22,8 +23,14 @@ const ProfileScreen = () => {
             source={require("../assets/Images/TestLogo.png")}
             style={styles.backgroundImg}
           >
-            <Icon name = "settings" size = {30} style = {styles.settingIcon}/>
-            
+            <View style={{ position: "absolute", right: 5, top: 2 }}>
+              <Button
+                title=""
+                icon={<Icon name="settings" size={20} color="white" />}
+                buttonStyle={styles.settingIcon}
+                onPress = {() => navigation.navigate("SettingsScreen")}
+              />
+            </View>
             <View style={styles.container}>
               <Text style={styles.profileText}> Avatar placeholder</Text>
               <Text style={styles.profileText}> Username</Text>
@@ -207,12 +214,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
-  settingIcon:{
-    color: 'black',
-    position: 'absolute',
-    size: 40,
-    right: 0, 
-    top: 0,
+  settingIcon: {
+    width: 40,
+    height: 40,
+    backgroundColor: "black",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
