@@ -8,7 +8,6 @@ import Navigator from './navigation/Navigator';
 export default function App() {
   return (
     <NavigationContainer>
-    <Text>Hi</Text>
     <View style = {{flex:1}}>
       <Navigator/>
       </View>
