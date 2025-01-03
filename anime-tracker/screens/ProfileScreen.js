@@ -43,6 +43,12 @@ const ProfileScreen = () => {
             {/*Stats section*/}
             <View style={styles.category}>
               <Text style={styles.categoryText}>Stats</Text>
+              <Button
+                title=""
+                icon={<Icon name="arrow-forward-ios" size={14} color="white" />}
+                buttonStyle={styles.forwardIcon}
+                onPress = {() => navigation.navigate("Favorites")}
+              />
             </View>
             <ScrollView
               horizontal={true}
@@ -77,6 +83,12 @@ const ProfileScreen = () => {
             {/* Favorites Section */}
             <View style={styles.category}>
               <Text style={styles.categoryText}>Favorites</Text>
+              <Button
+                title=""
+                icon={<Icon name="arrow-forward-ios" size={14} color="white" />}
+                buttonStyle={styles.forwardIcon}
+                onPress = {() => navigation.navigate("Favorites")}
+              />
             </View>
             <ScrollView
               horizontal={true}
@@ -104,6 +116,12 @@ const ProfileScreen = () => {
             {/* Watchlist Section */}
             <View style={styles.category}>
               <Text style={styles.categoryText}>Watchlist</Text>
+              <Button
+                title=""
+                icon={<Icon name="arrow-forward-ios" size={14} color="white" />}
+                buttonStyle={styles.forwardIcon}
+                onPress = {() => navigation.navigate("Favorites")}
+              />
             </View>
             <ScrollView
               horizontal={true}
@@ -157,7 +175,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     paddingLeft: 8,
     height: 50,
-    justifyContent: "center",
+    justifyContent: "space-between",
+    alignItems:'center',
+    flexDirection: 'row',
   },
   categoryText: {
     fontSize: 25,
@@ -222,6 +242,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  forwardIcon:{
+    width: 30,
+    height: 30,
+    backgroundColor: 'black',
+    borderRadius: 20,
+    marginRight: 5,
+  }
 });
 
 export default ProfileScreen;
