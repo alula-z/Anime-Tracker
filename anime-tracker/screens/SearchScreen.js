@@ -1,6 +1,6 @@
-import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {SearchBar} from 'react-native-elements';
+import React from "react";
 const search = ""
 const SearchScreen = () =>{
     return (
