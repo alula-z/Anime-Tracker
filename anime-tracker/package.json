@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@parse/react-native": "^0.0.1-alpha.18",
+    "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-navigation/bottom-tabs": "^7.2.0",
@@ -31,6 +32,7 @@
     "react-native-safe-area-context": "^5.0.0",
     "react-native-screens": "^4.4.0",
     "react-native-svg": "^15.10.1",
+    "react-native-uuid": "^2.0.3",
     "react-native-vector-icons": "^10.2.0"
   },
   "devDependencies": {

@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import HomeScreen from '../screens/HomeScreen';
+import {UserRegistration}  from '../screens/UserRegistration';
 import SearchScreen from '../screens/SearchScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';
 import SettingsScreen from '../screens/SettingsScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Parse from "parse/react-native";
+import { NavigationContainer } from '@react-navigation/native';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -26,11 +27,13 @@ function ProfileStackNavigator(){
         </Stack.Navigator>
     )
 }
-const Navigator = () =>{
+
+
+const MainNav = () =>{
     return(
         <Tab.Navigator
             screenOptions = {({route}) => ({
-                tabBarIcon: ({focused, color,size}) =>{
+                tabBarIcon: ({ color,size}) =>{
                     let iconName;
 
                     if(route.name === "Home"){
@@ -56,6 +59,31 @@ const Navigator = () =>{
             
         </Tab.Navigator>
     );
-};
 
-export default Navigator;
+}
+function AuthStackNavigator(){
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name = 'SignUp' component ={UserRegistration} options = {{headerShown: false}} />
+        </Stack.Navigator>
+    );
+}
+
+export default function Navigator(){
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const checkCurrentUser = async() => {
+        const currentUser = await Parse.User.currentAsync();
+        setIsAuthenticated(!!currentUser);
+    }; 
+    checkCurrentUser();
+}, []);
+
+ 
+    return(
+        <NavigationContainer>
+            {isAuthenticated ? <MainNav /> : <AuthStackNavigator/>}
+        </NavigationContainer>
+    );
+}

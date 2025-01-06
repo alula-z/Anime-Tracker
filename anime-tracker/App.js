@@ -5,26 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import Navigator from './navigation/Navigator';
 import { UserRegistration } from './screens/UserRegistration';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import 'react-native-get-random-values';
 export default function App() {
   return (
-    <>
-    <StatusBar/>
-    <SafeAreaView style = {styles.container}>
-    <>
-    <Text style = {styles.title}> Sign Up</Text>
-    <UserRegistration/>
-    </>
-    </SafeAreaView>
-    </>
+    <Navigator/>
   );
 }
-{/*<NavigationContainer>
-      
-      <View style = {styles.navBar}>
-        <Navigator/>
-        </View>
-      </NavigationContainer> */}
+
 
 const styles = StyleSheet.create({
   navBar: {

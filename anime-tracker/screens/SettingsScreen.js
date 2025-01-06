@@ -9,16 +9,29 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { NavigationContainer } from "@react-navigation/native";
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const SettingsScreen = () =>{
-    return(
-        <View>
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
-        </View>
-    )
-}
+import Parse from "parse/react-native";
+const SettingsScreen = () => {
+  const navigation = useNavigation();
+  const handleLogout = async () => {
+    try {
+      await Parse.User.logOut();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "SignUp" }],
+      });
+    } catch (error) {
+      console.error("error during logout: ", error.message);
+    }
+  };
+  return (
+    <View>
+      <Button title="log out" onPress={handleLogout} />
+    </View>
+  );
+};
 
 export default SettingsScreen;
