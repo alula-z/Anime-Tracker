@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import Navigator from './navigation/Navigator';
-import { UserRegistration } from './screens/UserRegistration';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-get-random-values';
 import Parse from 'parse/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
