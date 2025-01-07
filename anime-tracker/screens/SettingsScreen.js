@@ -12,16 +12,18 @@ import {
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Parse from "parse/react-native";
-const SettingsScreen = () => {
+const SettingsScreen = ({setIsAuthenticated}) => {
   const navigation = useNavigation();
   const handleLogout = async () => {
     try {
       await Parse.User.logOut();
+      await AsyncStorage.removeItem("userSession");
+      setIsAuthenticated(false);
       navigation.reset({
         index: 0,
-        routes: [{ name: "SignUp" }],
+        routes: [{ name: "LogIn" }],
       });
     } catch (error) {
       console.error("error during logout: ", error.message);
