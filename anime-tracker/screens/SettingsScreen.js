@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-
+import { StackActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -21,10 +21,9 @@ const SettingsScreen = ({setIsAuthenticated}) => {
       await Parse.User.logOut();
       await AsyncStorage.removeItem("userSession");
       setIsAuthenticated(false);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "LogIn" }],
-      });
+      navigation.dispatch(
+        StackActions.popToTop()
+      );
     } catch (error) {
       console.error("error during logout: ", error.message);
     }

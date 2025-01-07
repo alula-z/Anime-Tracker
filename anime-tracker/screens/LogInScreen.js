@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, Alert, Button, StyleSheet, TextInput, View } from "react-native";
 import Parse from "parse/react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { StackActions } from "@react-navigation/native";
 export const LogInScreen = ({ navigation,setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,10 +14,9 @@ export const LogInScreen = ({ navigation,setIsAuthenticated }) => {
       const currentUser = await Parse.User.logIn(usernameVal, passwordVal);
       await AsyncStorage.setItem("userSession", JSON.stringify(currentUser));
       setIsAuthenticated(true);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "MainNav" }],
-      });
+      navigation.dispatch(
+        StackActions.popToTop()
+      );
       
     } catch (error) {
       Alert.alert("Error", error.message);
