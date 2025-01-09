@@ -1,12 +1,7 @@
 import React, {useState} from "react";
+import ApiService from '../ApiService';
 import {
-  ScrollView,
-  ImageBackground,
-  StyleSheet,
-  Text,
   View,
-  Image,
-  TouchableOpacity,
   Button,
 } from "react-native";
 import { StackActions } from "@react-navigation/native";
@@ -15,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Parse from "parse/react-native";
 import {getAnimeFromApi} from '../ApiService';
+
 
 const SettingsScreen = ({setIsAuthenticated}) => {
   const navigation = useNavigation();
@@ -33,9 +29,13 @@ const SettingsScreen = ({setIsAuthenticated}) => {
     }
   };
 const handleFetch = async () =>{
+  console.log("entered handleFetch method");
   setLoading(true)
+
   const anime = await getAnimeFromApi();
+  
   if(anime){
+    console.log("Entered if");
     setData(anime.data || []);
   }
   setLoading(false);
@@ -43,7 +43,7 @@ const handleFetch = async () =>{
   return (
     <View>
       <Button title="log out" onPress={handleLogout} />
-      <Button title = "fetch" onPress = {handleFetch}/>
+      <Button title = "fetch" onPress = {getAnimeFromApi}/>
     </View>
   );
 };
