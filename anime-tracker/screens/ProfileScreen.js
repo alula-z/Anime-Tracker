@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
 import {
   ScrollView,
   ImageBackground,
@@ -11,10 +11,20 @@ import {
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
+import { getUser } from "../ApiService";
 
 const movieThumbnail = require("../assets/Images/movieThumbnailHolder.jpeg");
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const[currentUser, setCurrentUser]= useState(null);
+
+  useEffect(()=>{
+    const fetchUser = async() =>{
+      const user = await getUser();
+      setCurrentUser(user);
+    };
+    fetchUser();
+  },[]);
   return (
     <View>
       <ScrollView>
@@ -33,7 +43,7 @@ const ProfileScreen = () => {
             </View>
             <View style={styles.container}>
               <Text style={styles.profileText}> Avatar placeholder</Text>
-              <Text style={styles.profileText}> Username</Text>
+              <Text style={styles.profileText}> {currentUser.get('username')}</Text>
               <Text style={styles.profileText}>Experience Level</Text>
             </View>
           </ImageBackground>

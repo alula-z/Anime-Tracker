@@ -73,11 +73,7 @@ const saveAnime = async (animeList) => {
   }
 };
 
-const Item = ({ title }) => {
-  <View>
-    <Text>{title}</Text>
-  </View>;
-};
+
 export const getAnime = async (searchVal) => {
   console.log("entered getAnime");
   try {
@@ -93,3 +89,17 @@ export const getAnime = async (searchVal) => {
     console.log("Error retrieving anime", error.message);
   }
 };
+
+export const getUser = async function(){
+  try{
+    const currentUser = await Parse.User.currentAsync();
+    if(currentUser !== null){
+      Alert.alert('Sucess', `${currentUser.get('username')} is the current user`);
+    }
+  return currentUser
+  }catch(error){
+    console.log("Error finding user", error.message);
+    return null;
+  }
+}
+
