@@ -1,28 +1,34 @@
 import Parse from "./parseConfig";
 import { Alert } from "react-native";
-import { View,Text,FlatList } from "react-native";
+import { View, Text, FlatList } from "react-native";
 
 export const getAnimeFromApi = async () => {
   console.log("entered getAnimeFromApi method");
-  try {
-    const response = await fetch(
-      "https://api.myanimelist.net/v2/anime?q=one&limit=200",
-      {
-        headers: { "X-MAL-CLIENT-ID": "d39184f4fb79d5681b4e4eb4ba31419d" },
+  let offset = 0;
+  let finished = false;
+    try {
+      while (!finished) {
+      console.log(`offset: ${offset} \n`);
+      const response = await fetch(
+        `https://api.myanimelist.net/v2/anime?q=one&limit=100&offset=${offset}`,
+        {
+          headers: { "X-MAL-CLIENT-ID": "d39184f4fb79d5681b4e4eb4ba31419d" },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const responseJson = await response.json();
-    if (responseJson.data && Array.isArray(responseJson.data)) {
-      await saveAnime(responseJson.data);
-    }
-    return responseJson;
-  } catch (error) {
-    console.error(error);
-    return null;
+      const responseJson = await response.json();
+      if (responseJson.data && Array.isArray(responseJson.data)) {
+        await saveAnime(responseJson.data);
+      }
+      {offset > 200 ? finished = true : offset += 100  }}
+      return responseJson;
+    } catch (error) {
+      console.error(error);
+      return null;
   }
+  
 };
 
 const saveAnime = async (animeList) => {
@@ -45,7 +51,7 @@ const saveAnime = async (animeList) => {
             await animeObject.save();
             console.log("Saved anime:", anime.node.title, anime.node.id);
             savedCount++;
-          }else{
+          } else {
             console.log("Null title");
           }
         } else {
@@ -67,74 +73,23 @@ const saveAnime = async (animeList) => {
   }
 };
 
-const saveAnimeDetails = async (animeList) => {
-  console.log("entered save method");
-  let savedCount = 0;
-  try {
-    const AnimeClass = Parse.Object.extend("Anime");
-    for (const anime of animeList) {
-      try {
-        const query = new Parse.Query(AnimeClass);
-        query.equalTo("title", anime.node.title);
-        const existingAnime = await query.first();
-
-        if (!existingAnime) {
-          const animeObject = new AnimeClass();
-          animeObject.set(
-            "japaneseTitle",
-            anime.alternative_titles.synonyms.ja
-          );
-          animeObject.set("synopsis", anime.synopsis);
-          animeObject.set("id", anime.node.id);
-          await animeObject.save();
-          console.log(
-            "Saved anime Details:",
-            anime.anime.alternative_titles.synonyms.ja
-          );
-          savedCount++;
-        } else {
-          console.log(
-            "Anime already exists:",
-            anime.anime.alternative_titles.synonyms.ja
-          );
-        }
-      } catch (saveError) {
-        console.error(
-          "Error saving anime:",
-          anime.anime.alternative_titles.synonyms.ja,
-          saveError
-        );
-      }
-    }
-
-    if (savedCount > 0) {
-      Alert.alert("Success", `Saved ${savedCount} new anime entries`);
-    } else {
-      Alert.alert("Info", "No new anime entries to save");
-    }
-  } catch (error) {
-    console.error("Error in save process:", error);
-    Alert.alert("Error", "Failed to save anime data");
-  }
-};
-const Item = ({title}) => {
+const Item = ({ title }) => {
   <View>
     <Text>{title}</Text>
-  </View>
-}
-export const getAnime = async(searchVal)=>{
-  console.log('entered getAnime');
-  try{
+  </View>;
+};
+export const getAnime = async (searchVal) => {
+  console.log("entered getAnime");
+  try {
     let query = new Parse.Query("Anime");
-    query.contains('title', searchVal);
+    query.contains("title", searchVal);
 
     let results = await query.find();
 
-    for(let anime of results){
-      console.log(anime.get('title'));
-    };
-    
-  }catch(error){
+    for (let anime of results) {
+      console.log(anime.get("title"));
+    }
+  } catch (error) {
     console.log("Error retrieving anime", error.message);
   }
-}
+};
