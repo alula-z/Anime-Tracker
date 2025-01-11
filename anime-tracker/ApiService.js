@@ -90,16 +90,5 @@ export const getAnime = async (searchVal) => {
   }
 };
 
-export const getUser = async function(){
-  try{
-    const currentUser = await Parse.User.currentAsync();
-    if(currentUser !== null){
-      Alert.alert('Sucess', `${currentUser.get('username')} is the current user`);
-    }
-  return currentUser
-  }catch(error){
-    console.log("Error finding user", error.message);
-    return null;
-  }
-}
+
 

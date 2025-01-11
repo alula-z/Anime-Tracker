@@ -6,12 +6,11 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
-import { getUser } from "../ApiService";
+import { getUser } from "../App";
 
 const movieThumbnail = require("../assets/Images/movieThumbnailHolder.jpeg");
 const ProfileScreen = () => {
@@ -25,6 +24,13 @@ const ProfileScreen = () => {
     };
     fetchUser();
   },[]);
+  if (currentUser === null) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text> 
+      </View>
+    );
+  }
   return (
     <View>
       <ScrollView>

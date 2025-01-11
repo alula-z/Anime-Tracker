@@ -8,6 +8,18 @@ import Parse from './parseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 
+export const getUser = async function(){
+  try{
+    const currentUser = await Parse.User.currentAsync();
+    if(currentUser !== null){
+      Alert.alert('Sucess', `${currentUser.get('username')} is the current user`);
+    }
+  return currentUser
+  }catch(error){
+    console.log("Error finding user", error.message);
+    return null;
+  }
+}
 export default function App() {
   useEffect(() => {
     const initializeInstallation = async () => {
