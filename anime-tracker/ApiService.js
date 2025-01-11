@@ -1,5 +1,6 @@
 import Parse from "./parseConfig";
 import { Alert } from "react-native";
+import { View,Text,FlatList } from "react-native";
 
 export const getAnimeFromApi = async () => {
   console.log("entered getAnimeFromApi method");
@@ -116,3 +117,24 @@ const saveAnimeDetails = async (animeList) => {
     Alert.alert("Error", "Failed to save anime data");
   }
 };
+const Item = ({title}) => {
+  <View>
+    <Text>{title}</Text>
+  </View>
+}
+export const getAnime = async(searchVal)=>{
+  console.log('entered getAnime');
+  try{
+    let query = new Parse.Query("Anime");
+    query.contains('title', searchVal);
+
+    let results = await query.find();
+
+    for(let anime of results){
+      console.log(anime.get('title'));
+    };
+    
+  }catch(error){
+    console.log("Error retrieving anime", error.message);
+  }
+}
