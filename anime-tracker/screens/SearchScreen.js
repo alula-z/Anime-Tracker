@@ -35,6 +35,7 @@ const SearchScreen = () => {
           value={search}
           style={styles.searchBar}
           onChangeText={(text) => setSearch(text)}
+          autoCorrect = {false}
         />
         <Button
           title=""

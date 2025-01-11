@@ -16,7 +16,7 @@ const movieThumbnail = require("../assets/Images/movieThumbnailHolder.jpeg");
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const[currentUser, setCurrentUser]= useState(null);
-
+  
   useEffect(()=>{
     const fetchUser = async() =>{
       const user = await getUser();

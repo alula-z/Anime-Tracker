@@ -4,13 +4,13 @@ import { View, Text, FlatList } from "react-native";
 
 export const getAnimeFromApi = async () => {
   console.log("entered getAnimeFromApi method");
-  let offset = 0;
+  let offset = 2800;
   let finished = false;
     try {
       while (!finished) {
       console.log(`offset: ${offset} \n`);
       const response = await fetch(
-        `https://api.myanimelist.net/v2/anime?q=one&limit=100&offset=${offset}`,
+        `https://api.myanimelist.net/v2/anime?q=anime&limit=100&offset=${offset}`,
         {
           headers: { "X-MAL-CLIENT-ID": "d39184f4fb79d5681b4e4eb4ba31419d" },
         }
@@ -22,7 +22,7 @@ export const getAnimeFromApi = async () => {
       if (responseJson.data && Array.isArray(responseJson.data)) {
         await saveAnime(responseJson.data);
       }
-      {offset > 200 ? finished = true : offset += 100  }}
+      {offset > 3000 ? finished = true : offset += 100  }}
       return responseJson;
     } catch (error) {
       console.error(error);
