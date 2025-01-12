@@ -4,7 +4,7 @@ import { View, Text, FlatList } from "react-native";
 
 export const getAnimeFromApi = async () => {
   console.log("entered getAnimeFromApi method");
-  let offset = 2800;
+  let offset = 2500;
   let finished = false;
     try {
       while (!finished) {

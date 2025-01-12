@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import ApiService from '../ApiService';
+import showAnime from "./showAnime";
 import {
   View,
   Button,
@@ -10,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Parse from "parse/react-native";
 import {getAnimeFromApi} from '../ApiService';
+
 
 
 const SettingsScreen = ({setIsAuthenticated}) => {

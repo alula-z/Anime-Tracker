@@ -17,7 +17,27 @@ export const UserRegistration = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [secondPassword, setSecondPassword] = useState("");
-
+  const passCheck = (password) =>{
+    // password length 8 characters, include number, include capital
+    let currentPassCheck = true;
+    let errorMessage = "";
+    if(password.length <8){
+      errorMessage += 'Password length must be longer than 9 characters\n';
+      currentPassCheck = false;
+    }
+    if(!password.match(/\d/)){
+      errorMessage += 'Password must contain a number\n';
+      currentPassCheck = false;
+    }
+    if(!password.match(/[A-Z]/)){
+      errorMessage += 'Password must contain an Upper case\n'
+      currentPassCheck = false;
+    }
+    Alert.alert(errorMessage);
+    return currentPassCheck;
+    
+  }
+  
   const doUserRegistration = async () => {
     const usernameVal = username.trim();
     const passwordVal = password;
@@ -36,6 +56,9 @@ export const UserRegistration = ({ navigation }) => {
     }
     if (passwordVal !== secondPasswordVal) {
       Alert.alert("Error", "Passwords do not match");
+      return false;
+    }
+    if(!passCheck(passwordVal)){
       return false;
     }
     try {
