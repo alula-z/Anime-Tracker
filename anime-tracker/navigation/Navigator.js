@@ -11,6 +11,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Parse from "parse/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { LogInScreen } from "../screens/LogInScreen";
+import showAnime from "../screens/showAnime";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const RootStack = createStackNavigator();
@@ -65,6 +66,8 @@ const MainNav = ({ setIsAuthenticated }) => {
             iconName = "favorite";
           } else if (route.name === "Profile") {
             iconName = "person";
+          }else if(route.name === "Show"){
+            iconName = "search";
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
@@ -73,6 +76,7 @@ const MainNav = ({ setIsAuthenticated }) => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name = "Show" component={showAnime}/>
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen
